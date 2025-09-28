@@ -184,6 +184,37 @@
             /* margin-top: 90px;  */
         }
 
+          .category-card {
+            border-left: 4px solid #0d6efd;
+            transition: transform 0.2s;
+        }
+        .category-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.1);
+        }
+        .action-buttons {
+            display: flex;
+            gap: 10px;
+        }
+        .empty-state {
+            text-align: center;
+            padding: 40px;
+            color: #6c757d;
+        }
+        .form-container {
+            background-color: white;
+            border-radius: 8px;
+            box-shadow: 0 2px 4px rgba(0,0,0,0.05);
+            padding: 25px;
+            margin-bottom: 30px;
+        }
+        h1 {
+            color: #343a40;
+            margin-bottom: 25px;
+            border-bottom: 2px solid #e9ecef;
+            padding-bottom: 10px;
+        }
+
 </style>
 </head>
 
@@ -550,7 +581,58 @@
  </div> 
     <div id="main">
         <div class="main_content">
-        @yield('content')
+              <h1>Category Management</h1>
+        
+        <!-- Form for creating new category -->
+        <div class="form-container">
+            <h2>Create New Category</h2>
+            <form>
+                @csrf
+                <div class="mb-3">
+                    <label for="name" class="form-label">Category Name</label>
+                    <input type="text" class="form-control" id="name" name="name" required>
+                </div>
+                <div class="mb-3">
+                    <label for="description" class="form-label">Description</label>
+                    <textarea class="form-control" id="description" name="description" rows="3" required></textarea>
+                </div>
+                <button type="submit" class="btn btn-primary">Create Category</button>
+            </form>
+        </div>
+
+        <!-- Display existing categories -->
+        <div id="categoriesList">
+            <h2>Existing Categories</h2>
+            <div class="row">
+                <!-- Dummy Category 1 -->
+                <div class="col-md-6 mb-3">
+                    <div class="card category-card h-100">
+                        <div class="card-body">
+                            <h5 class="card-title">Men</h5>
+                            <p class="card-text">Clothing and accessories for men.</p>
+                            <div class="action-buttons">
+                                <button class="btn btn-sm btn-outline-primary">Edit</button>
+                                <button class="btn btn-sm btn-outline-danger">Delete</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- Dummy Category 2 -->
+                <div class="col-md-6 mb-3">
+                    <div class="card category-card h-100">
+                        <div class="card-body">
+                            <h5 class="card-title">Women</h5>
+                            <p class="card-text">Clothing and accessories for women.</p>
+                            <div class="action-buttons">
+                                <button class="btn btn-sm btn-outline-primary">Edit</button>
+                                <button class="btn btn-sm btn-outline-danger">Delete</button>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </div>
         </div>
 </div>
 
