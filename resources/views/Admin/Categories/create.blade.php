@@ -300,7 +300,7 @@
 
 <body>
 <div id="app">
-     <div id="sidebar" class="active">
+  <div id="sidebar" class="active">
   <div class="sidebar-wrapper active">
     <div class="sidebar-header">
         <div class="d-flex justify-content-between">
@@ -317,7 +317,7 @@
             <li class="sidebar-title">Menu</li>
             
             <li class="sidebar-item  ">
-                <a href="index.html" class='sidebar-link'>
+                <a href="/" class='sidebar-link'>
                     <i class="bi bi-grid-fill"></i>
                     <span>Dashboard</span>
                 </a>
@@ -326,119 +326,34 @@
             <li class="sidebar-item  has-sub">
                 <a href="#" class='sidebar-link'>
                     <i class="bi bi-stack"></i>
-                    <span>Components</span>
+                    <span>Product</span>
                 </a>
                 <ul class="submenu ">
                     <li class="submenu-item ">
-                        <a href="component-alert.html">Alert</a>
+                        <a href="{{ route('products.index') }}">Product Manage</a>
                     </li>
                     <li class="submenu-item ">
-                        <a href="component-badge.html">Badge</a>
-                    </li>
-                    <li class="submenu-item ">
-                        <a href="component-breadcrumb.html">Breadcrumb</a>
-                    </li>
-                    <li class="submenu-item ">
-                        <a href="component-button.html">Button</a>
+                        <a href="{{ route('products.create') }}">Add Product</a>
                     </li>
                 </ul>
-            </li>
+            </li>   
             
-            <li class="sidebar-item  has-sub">
-                <a href="#" class='sidebar-link'>
-                    <i class="bi bi-collection-fill"></i>
-                    <span>Extra Components</span>
+            <li class="sidebar-item active ">
+                <a href="{{ route('categories.index') }}" class='sidebar-link'>
+                    <i class="bi bi-chat-dots-fill"></i>
+                    <span>Categories</span>
                 </a>
-                <ul class="submenu ">
-                    <li class="submenu-item ">
-                        <a href="extra-component-avatar.html">Avatar</a>
-                    </li>
-                    <li class="submenu-item ">
-                        <a href="extra-component-sweetalert.html">Sweet Alert</a>
-                    </li>
-                </ul>
-            </li>
+            </li>   
             
-            <li class="sidebar-item  has-sub">
-                <a href="#" class='sidebar-link'>
-                    <i class="bi bi-grid-1x2-fill"></i>
-                    <span>Layouts</span>
-                </a>
-                <ul class="submenu ">
-                    <li class="submenu-item ">
-                        <a href="layout-default.html">Default Layout</a>
-                    </li>
-                    <li class="submenu-item ">
-                        <a href="layout-vertical-1-column.html">1 Column</a>
-                    </li>
-                    <li class="submenu-item ">
-                        <a href="layout-vertical-navbar.html">Vertical with Navbar</a>
-                    </li>
-                    <li class="submenu-item ">
-                        <a href="layout-horizontal.html">Horizontal Menu</a>
-                    </li>
-                </ul>
-            </li>
-            
-            
-            <li class="sidebar-item  has-sub">
-                <a href="#" class='sidebar-link'>
-                    <i class="bi bi-hexagon-fill"></i>
-                    <span>Form Elements</span>
-                </a>
-                <ul class="submenu ">
-                    <li class="submenu-item ">
-                        <a href="form-element-input.html">Input</a>
-                    </li>
-                    <li class="submenu-item ">
-                        <a href="form-element-input-group.html">Input Group</a>
-                    </li>
-                    <li class="submenu-item ">
-                        <a href="form-element-select.html">Select</a>
-                    </li>
-                    <li class="submenu-item ">
-                        <a href="form-element-radio.html">Radio</a>
-                    </li>
-                    <li class="submenu-item ">
-                        <a href="form-element-checkbox.html">Checkbox</a>
-                    </li>
-                    <li class="submenu-item ">
-                        <a href="form-element-textarea.html">Textarea</a>
-                    </li>
-                </ul>
-            </li>
-            
-            
-            
+            <li class="sidebar-title">Forms &amp; Tables</li>
+                        
             <li class="sidebar-item  ">
-                <a href="table.html" class='sidebar-link'>
-                    <i class="bi bi-grid-1x2-fill"></i>
-                    <span>Table</span>
+                <a href="form-layout.html" class='sidebar-link'>
+                    <i class="bi bi-file-earmark-medical-fill"></i>
+                    <span>Form Layout</span>
                 </a>
             </li>
-            
-            
-            <li class="sidebar-title">Extra UI</li>
-            
-            <li class="sidebar-item  has-sub">
-                <a href="#" class='sidebar-link'>
-                    <i class="bi bi-pentagon-fill"></i>
-                    <span>Widgets</span>
-                </a>
-                <ul class="submenu ">
-                    <li class="submenu-item ">
-                        <a href="ui-widgets-chatbox.html">Chatbox</a>
-                    </li>
-                    <li class="submenu-item ">
-                        <a href="ui-widgets-pricing.html">Pricing</a>
-                    </li>
-                    <li class="submenu-item ">
-                        <a href="ui-widgets-todolist.html">To-do List</a>
-                    </li>
-                </ul>
-            </li>
-            
-            
+                      
             <li class="sidebar-item  has-sub">
                 <a href="#" class='sidebar-link'>
                     <i class="bi bi-bar-chart-fill"></i>
@@ -453,29 +368,7 @@
                     </li>
                 </ul>
             </li>
-            
-            <li class="sidebar-item  ">
-                <a href="ui-file-uploader.html" class='sidebar-link'>
-                    <i class="bi bi-cloud-arrow-up-fill"></i>
-                    <span>File Uploader</span>
-                </a>
-            </li>
-            
-            <li class="sidebar-item  has-sub">
-                <a href="#" class='sidebar-link'>
-                    <i class="bi bi-map-fill"></i>
-                    <span>Maps</span>
-                </a>
-                <ul class="submenu ">
-                    <li class="submenu-item ">
-                        <a href="ui-map-google-map.html">Google Map</a>
-                    </li>
-                    <li class="submenu-item ">
-                        <a href="ui-map-jsvectormap.html">JS Vector Map</a>
-                    </li>
-                </ul>
-            </li>
-            
+                       
             <li class="sidebar-title">Pages</li>
             
             <li class="sidebar-item  ">
@@ -496,13 +389,6 @@
                 <a href="application-gallery.html" class='sidebar-link'>
                     <i class="bi bi-image-fill"></i>
                     <span>Photo Gallery</span>
-                </a>
-            </li>
-            
-            <li class="sidebar-item  ">
-                <a href="application-checkout.html" class='sidebar-link'>
-                    <i class="bi bi-basket-fill"></i>
-                    <span>Checkout Page</span>
                 </a>
             </li>
             
@@ -536,34 +422,10 @@
                     <li class="submenu-item ">
                         <a href="error-404.html">404</a>
                     </li>
-                    <li class="submenu-item ">
-                        <a href="error-500.html">500</a>
-                    </li>
                 </ul>
             </li>
             
             <li class="sidebar-title">Raise Support</li>
-            
-            <li class="sidebar-item  ">
-                <a href="https://zuramai.github.io/mazer/docs" class='sidebar-link'>
-                    <i class="bi bi-life-preserver"></i>
-                    <span>Documentation</span>
-                </a>
-            </li>
-            
-            <li class="sidebar-item  ">
-                <a href="https://github.com/zuramai/mazer/blob/main/CONTRIBUTING.md" class='sidebar-link'>
-                    <i class="bi bi-puzzle"></i>
-                    <span>Contribute</span>
-                </a>
-            </li>
-            
-            <li class="sidebar-item  ">
-                <a href="https://github.com/zuramai/mazer#donate" class='sidebar-link'>
-                    <i class="bi bi-cash"></i>
-                    <span>Donate</span>
-                </a>
-            </li>
             
         </ul>
     </div>

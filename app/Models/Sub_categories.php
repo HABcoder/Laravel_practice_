@@ -11,5 +11,11 @@ class Sub_categories extends Model
      protected $primaryKey = 'sub_category_id';
     public $timestamps = false;
 
+    public function category()
+{
+    return $this->belongsTo(Categories::class, 'category_id');
+}
+
+
 
 }
