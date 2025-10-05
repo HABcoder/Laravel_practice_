@@ -311,14 +311,115 @@
 <body>
 
 
-    <div class="container">
-       
+  <div class="container">
+        <div class="row justify-content-center">
+            <div class="col-lg-10">
+                <div class="form-container">
+                    <div class="form-header">
+                        <h1 class="h3"><i class="fas fa-plus-circle me-2"></i>Update Your Product</h1>
+                        <p class="text-muted">Fill in the product details below.</p>
+                    </div>
+
+                    <form  method="POST" enctype="multipart/form-data">
+                        
+                        <!-- Basic Info -->
+                        <div class="form-section">
+                            <h5><i class="fas fa-info-circle"></i> Basic Information</h5>
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label required">Product Name</label>
+                                    <input type="text" name="product_name" class="form-control" required>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label required">SKU</label>
+                                    <input type="text" name="sku" class="form-control" required>
+                                    <div class="form-text">Must be unique</div>
+                                </div>
+                            </div>
+
+                            <div class="mb-3">
+                                <label class="form-label">Short Description</label>
+                                <textarea name="short_description" id="shortDescription" class="form-control" maxlength="500"></textarea>
+                                <div class="form-text"><span id="shortDescCounter">0</span>/500 characters</div>
+                            </div>
+
+                            <div class="mb-3">
+                                <label class="form-label">Full Description</label>
+                                <textarea name="description" class="form-control" rows="4"></textarea>
+                            </div>
+                        </div>
+
+                        <!-- Category -->
+                       
+
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label required">Active Status</label>
+                                    <select class="form-select" name="is_active" required>
+                                        <option value="de_active" selected>Deactivated</option>
+                                        <option value="active">Active</option>
+                                    </select>
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Pricing -->
+                        <div class="form-section">
+                            <h5><i class="fas fa-tag"></i> Pricing Information</h5>
+                            <div class="row">
+                                <div class="col-md-4 mb-3">
+                                    <label class="form-label required">Price ($)</label>
+                                    <input type="number" name="price" step="0.01" min="0" class="form-control" required>
+                                </div>
+                                <div class="col-md-4 mb-3">
+                                    <label class="form-label">Discount Price ($)</label>
+                                    <input type="number" name="discount_price" step="0.01" min="0" class="form-control">
+                                </div>
+                                <div class="col-md-4 mb-3">
+                                    <label class="form-label">Cost Price ($)</label>
+                                    <input type="number" name="cost_price" step="0.01" min="0" class="form-control">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Inventory -->
+                        <div class="form-section">
+                            <h5><i class="fas fa-boxes"></i> Inventory</h5>
+                            <div class="row">
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label required">Quantity in Stock</label>
+                                    <input type="number" name="stock" min="0" value="0" class="form-control" required>
+                                </div>
+                                <div class="col-md-6 mb-3">
+                                    <label class="form-label">Minimum Stock Level</label>
+                                    <input type="number" name="min_stock" min="0" value="5" class="form-control">
+                                </div>
+                            </div>
+                        </div>
+
+                        <!-- Image -->
+                        <div class="form-section">
+                            <h5><i class="fas fa-image"></i> Product Image</h5>
+                            <input type="file" name="image_url" class="form-control" accept="image/*">
+                        </div>
+
+                        <div class="d-flex justify-content-between mt-4">
+                            <a href="{{ route('products.index') }}" class="btn btn-outline-secondary"><i class="fas fa-times me-2"></i>Cancel</a>
+                            <button type="submit" class="btn btn-primary"><i class="fas fa-save me-2"></i>Save Product</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
     </div>
 
     <!-- Bootstrap JS Bundle with Popper -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
     
-
+<script>
+document.getElementById('shortDescription').addEventListener('input', function() {
+    document.getElementById('shortDescCounter').textContent = this.value.length;
+});
+</script>
 </body>
 </html>
 

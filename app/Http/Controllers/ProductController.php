@@ -9,7 +9,7 @@ class ProductController extends Controller
 {
     public function index()
     {
-        $all_prod = Product::all(); 
+       $all_prod = Product::with(['subCategory.category'])->get(); 
         return view('Admin/Product.index', compact('all_prod'));
     }
 
@@ -83,7 +83,12 @@ class ProductController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        $product = Product::find($id);
+        // $all_cat = Sub_categories::join('categories', 'sub_categories.category_id', '=', 'categories.category_id')
+        //     ->select('sub_categories.sub_category_id', 'sub_categories.sub_category_name', 'categories.category_name')
+        //     ->get();
+
+        return view('Admin/Product.edit', compact('product'));
     }
 
     /**

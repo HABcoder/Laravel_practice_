@@ -344,7 +344,6 @@
 
                     <form action="{{ route('products.store') }}" method="POST" enctype="multipart/form-data">
                         @csrf
-
                         <!-- Basic Info -->
                         <div class="form-section">
                             <h5><i class="fas fa-info-circle"></i> Basic Information</h5>

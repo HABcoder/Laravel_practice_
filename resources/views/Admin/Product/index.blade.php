@@ -359,7 +359,7 @@
     <div class="col-md-3 col-6">
       <div class="card border-0 shadow-sm text-center h-100">
         <div class="card-body">
-          <i class="bi bi-cube fs-1 text-primary mb-2"></i>
+          <i class="bi bi-box fs-1 text-primary mb-2"></i>
           <h5 class="fw-bold mb-0" id="totalProducts">120</h5>
           <small class="text-muted">Total Products</small>
         </div>
@@ -461,29 +461,44 @@
               <th>SKU</th>
               <th>Price</th>
               <th>Stock</th>
+              <th>Main Catgeory</th>
               <th>Status</th>
               <th>Active</th>
               <th class="text-center">Actions</th>
             </tr>
           </thead>
           <tbody>
+            @foreach($all_prod as $prod)
             <tr>
               <td>
                 <div class="d-flex align-items-center">
-                  <img src="https://via.placeholder.com/40" class="rounded me-2" alt="Product">
-                  <span>Herbal Shampoo</span>
+                  <img src="{{ asset('image/' . $prod->image_url) }}" class="rounded me-2" style="width:50px; height:50px; object-fit:cover;" alt="Product">
+                  <span>{{$prod->product_name}}</span>
                 </div>
               </td>
-              <td>HS-001</td>
-              <td>$12.99</td>
-              <td>25</td>
-              <td><span class="badge bg-success">Approved</span></td>
-              <td><span class="badge bg-primary">Active</span></td>
+              <td>{{$prod->sku}}</td>
+              <td>{{$prod->price}}</td>
+              <td>{{$prod->quantity_in_stock}}</td>
+             <td>{{ $prod->subCategory->category->category_name ?? 'No Category' }}</td>
+              <td>{{$prod->status}}</td>
+              <td>{{$prod->is_active}}</td>
+
               <td class="text-center">
-                <button class="btn btn-sm btn-warning"><i class="bi bi-pencil"></i></button>
-                <button class="btn btn-sm btn-danger"><i class="bi bi-trash"></i></button>
+                  <a href="{{ route('products.edit', $prod->product_id) }}" class="btn btn-sm btn-warning">Edit</a>
+                        <i class="fas fa-edit"></i>
+                  </button>
+                 <!-- Category Delete -->
+                  <form action="{{ route('products.destroy',$prod->product_id) }}" method="POST" class="d-inline">
+                     @csrf
+                     @method('DELETE')
+                     <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('Are you sure you want to delete this product?');">
+                        <i class="fas fa-trash"></i> Delete
+                     </button>
+                 </form>
               </td>
             </tr>
+            @endforeach
+            <!-- Sample Row -->
             <tr>
               <td>
                 <div class="d-flex align-items-center">
