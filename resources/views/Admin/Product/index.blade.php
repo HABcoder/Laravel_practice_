@@ -437,10 +437,12 @@
         </div>
 
         <!-- Add Product Button -->
-        <div class="col-md-2 text-md-end">
-          <button class="btn btn-primary w-100">
+        <div class="col-md-2 text-md-end"> 
+          <a href="{{ route('products.create') }}">
+            <button class="btn btn-primary w-100">
             <i class="bi bi-plus-lg me-1"></i> Add Product
           </button>
+          </a>
         </div>
       </div>
     </div>
