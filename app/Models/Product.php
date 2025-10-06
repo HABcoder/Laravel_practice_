@@ -26,6 +26,7 @@ class Product extends Model
         return $this->belongsTo(Sub_categories::class, 'sub_category_id');
     }
 
+    protected $primaryKey = 'product_id';
 
 
     public $timestamps = false;

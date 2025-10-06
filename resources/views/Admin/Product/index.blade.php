@@ -354,6 +354,8 @@
     <p class="text-muted">Easily manage your product inventory, stock, and status</p>
   </div>
 
+
+
   <!-- Stats Cards -->
   <div class="row g-4 mb-4">
     <div class="col-md-3 col-6">
@@ -394,6 +396,18 @@
     </div>
   </div>
 
+      @if(session('success'))
+        <div class="alert alert-success alert-dismissible fade show" role="alert">
+            {{ session('success') }}
+            <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+        </div>
+     @endif
+      @if(session('danger'))
+          <div class="alert alert-danger alert-dismissible fade show" role="alert">
+              {{ session('danger') }}
+              <button type="button" class="btn-close" data-bs-dismiss="alert" aria-label="Close"></button>
+          </div>
+      @endif
   <!-- Filters Section -->
   <div class="card shadow-sm border-0 mb-4">
     <div class="card-body">
@@ -483,7 +497,17 @@
               <td>{{$prod->quantity_in_stock}}</td>
              <td>{{ $prod->subCategory->category->category_name ?? 'No Category' }}</td>
               <td>{{$prod->status}}</td>
-              <td>{{$prod->is_active}}</td>
+              <td>
+               @if($prod->is_active == 'active')
+               <span class="badge bg-primary">
+                  <i class="fas fa-check-circle me-1"></i> Active
+                </span>
+               @elseif($prod->is_active == 'de_active')
+               <span class="badge bg-secondary">
+                  <i class="fas fa-times-circle me-1"></i> Deactive
+                </span>
+               @endif
+              </td>
 
               <td class="text-center">
                   <a href="{{ route('products.edit', $prod->product_id) }}" class="btn btn-sm btn-warning">Edit</a>

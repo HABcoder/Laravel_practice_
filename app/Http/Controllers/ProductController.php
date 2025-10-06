@@ -29,7 +29,7 @@ class ProductController extends Controller
         'description' => 'nullable|string',
         'image_url' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
         'short_description' => 'nullable|string|max:500',
-        'sku' => 'required|string|max:100|unique:products,sku',
+        'sku' => 'required|string|max:100',
         'price' => 'required|numeric',
         'discount_price' => 'nullable|numeric',
         'cost_price' => 'nullable|numeric',
@@ -66,6 +66,7 @@ class ProductController extends Controller
 
     // Insert product
     Product::create($data);
+    // dd($data);
 
     return redirect()->route('products.index')->with('success', 'Product created successfully.');
 }
@@ -81,14 +82,9 @@ class ProductController extends Controller
     /**
      * Show the form for editing the specified resource.
      */
-    public function edit(string $id)
-    {
-        $product = Product::find($id);
-        // $all_cat = Sub_categories::join('categories', 'sub_categories.category_id', '=', 'categories.category_id')
-        //     ->select('sub_categories.sub_category_id', 'sub_categories.sub_category_name', 'categories.category_name')
-        //     ->get();
-
-        return view('Admin/Product.edit', compact('product'));
+     public function edit(Product $product)
+   {
+     return view('Admin/Product.edit', compact('product'));
     }
 
     /**
@@ -104,7 +100,9 @@ class ProductController extends Controller
      */
     public function destroy(string $id)
     {
-        //
+        $product = Product::find($id);
+        $product->delete();
+        return redirect()->route('products.index')->with('danger', 'Product deleted successfully.');
     }
 
     }

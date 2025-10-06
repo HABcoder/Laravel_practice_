@@ -320,32 +320,33 @@
                         <p class="text-muted">Fill in the product details below.</p>
                     </div>
 
-                    <form  method="POST" enctype="multipart/form-data">
-                        
+                    <form action="{{ route('products.update', $product->product_id) }}" method="POST" enctype="multipart/form-data">
+                        @csrf
+                        @method('PUT')
                         <!-- Basic Info -->
                         <div class="form-section">
                             <h5><i class="fas fa-info-circle"></i> Basic Information</h5>
                             <div class="row">
                                 <div class="col-md-6 mb-3">
                                     <label class="form-label required">Product Name</label>
-                                    <input type="text" name="product_name" class="form-control" required>
+                                    <input type="text" name="product_name" class="form-control" value="{{ $product->product_name }}">
                                 </div>
                                 <div class="col-md-6 mb-3">
                                     <label class="form-label required">SKU</label>
-                                    <input type="text" name="sku" class="form-control" required>
-                                    <div class="form-text">Must be unique</div>
+                                    <input type="text" name="sku" class="form-control" value = "{{ $product->sku }}">
                                 </div>
                             </div>
 
                             <div class="mb-3">
                                 <label class="form-label">Short Description</label>
-                                <textarea name="short_description" id="shortDescription" class="form-control" maxlength="500"></textarea>
+                                <input type="text" name="" id=""  value = "{{ $product->short_description }}">
+                            
                                 <div class="form-text"><span id="shortDescCounter">0</span>/500 characters</div>
                             </div>
 
                             <div class="mb-3">
                                 <label class="form-label">Full Description</label>
-                                <textarea name="description" class="form-control" rows="4"></textarea>
+                                <input type="text" name="description" value = "{{ $product->description }}">
                             </div>
                         </div>
 
@@ -354,9 +355,9 @@
 
                                 <div class="col-md-6 mb-3">
                                     <label class="form-label required">Active Status</label>
-                                    <select class="form-select" name="is_active" required>
-                                        <option value="de_active" selected>Deactivated</option>
-                                        <option value="active">Active</option>
+                                    <select class="form-select" name="is_active" >
+                                        <option value="de_active" {{ $product->is_active == 'de_active' ? 'selected' : '' }}> Deactivated</option>
+                                        <option value="active" {{ $product->is_active == 'active' ? 'selected' : '' }}> Active</option>
                                     </select>
                                 </div>
                             </div>
@@ -367,16 +368,16 @@
                             <h5><i class="fas fa-tag"></i> Pricing Information</h5>
                             <div class="row">
                                 <div class="col-md-4 mb-3">
-                                    <label class="form-label required">Price ($)</label>
-                                    <input type="number" name="price" step="0.01" min="0" class="form-control" required>
+                                    <label class="form-label required" >Price ($)</label>
+                                    <input type="number" name="price" step="0.01" min="0" class="form-control" value = "{{ $product->price }}">
                                 </div>
                                 <div class="col-md-4 mb-3">
-                                    <label class="form-label">Discount Price ($)</label>
-                                    <input type="number" name="discount_price" step="0.01" min="0" class="form-control">
+                                    <label class="form-label" >Discount Price ($)</label>
+                                    <input type="number" name="discount_price" step="0.01" min="0" class="form-control" value = "{{ $product->discount_price }}">
                                 </div>
                                 <div class="col-md-4 mb-3">
-                                    <label class="form-label">Cost Price ($)</label>
-                                    <input type="number" name="cost_price" step="0.01" min="0" class="form-control">
+                                    <label class="form-label" >Cost Price ($)</label>
+                                    <input type="number" name="cost_price" step="0.01" min="0" class="form-control" value = "{{ $product->cost_price }}">
                                 </div>
                             </div>
                         </div>
@@ -386,12 +387,8 @@
                             <h5><i class="fas fa-boxes"></i> Inventory</h5>
                             <div class="row">
                                 <div class="col-md-6 mb-3">
-                                    <label class="form-label required">Quantity in Stock</label>
-                                    <input type="number" name="stock" min="0" value="0" class="form-control" required>
-                                </div>
-                                <div class="col-md-6 mb-3">
-                                    <label class="form-label">Minimum Stock Level</label>
-                                    <input type="number" name="min_stock" min="0" value="5" class="form-control">
+                                    <label class="form-label required" >Quantity in Stock</label>
+                                    <input type="number" name="stock" class="form-control" value = "{{ $product->quantity_in_stock }}">
                                 </div>
                             </div>
                         </div>
