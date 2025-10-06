@@ -496,7 +496,21 @@
               <td>{{$prod->price}}</td>
               <td>{{$prod->quantity_in_stock}}</td>
              <td>{{ $prod->subCategory->category->category_name ?? 'No Category' }}</td>
-              <td>{{$prod->status}}</td>
+              <td>
+                @if($prod->status == 'pending')
+                <span class="badge bg-warning text-dark">
+                    <i class="fas fa-hourglass-half me-1"></i> Pending
+                  </span>
+                @elseif($prod->status == 'approved')
+                <span class="badge bg-success">
+                    <i class="fas fa-check-circle me-1"></i> Approved
+                  </span>
+                @elseif($prod->status == 'rejected')
+                <span class="badge bg-danger">
+                    <i class="fas fa-times-circle me-1"></i> Rejected
+                  </span>
+                @endif
+              </td>
               <td>
                @if($prod->is_active == 'active')
                <span class="badge bg-primary">

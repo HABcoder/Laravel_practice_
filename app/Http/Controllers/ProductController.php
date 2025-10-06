@@ -92,7 +92,50 @@ class ProductController extends Controller
      */
     public function update(Request $request, string $id)
     {
-        //
+        $product = Product::find($id);
+
+        $request->validate([
+            'product_name' => 'required',
+            'description' => 'nullable|string',
+            'image_url' => 'nullable|image|mimes:jpeg,png,jpg,gif,svg|max:2048',
+            'short_description' => 'nullable|string|max:500',
+            'sku' => 'required|string|max:100',
+            'price' => 'required|numeric',
+            'discount_price' => 'nullable|numeric',
+            'cost_price' => 'nullable|numeric',
+            'stock' => 'required|integer',
+            'status' => 'required',
+            'is_active' => 'required',
+        ]);
+
+        // Collect product data from database
+        $data = $request->only([
+            'product_name',
+            'price',
+            'description',
+            'short_description',
+            'sku',
+            'discount_price',
+            'cost_price',
+            'status',
+            'is_active'
+        ]);
+
+        // Fix field names to match database
+        $data['quantity_in_stock'] = $request->stock;
+
+        // Handle image upload
+        if ($request->hasFile('image_url')) {
+            $image = $request->file('image_url');
+            $imageName = time() . '.' . $image->getClientOriginalExtension();
+            $image->move(public_path('image'), $imageName);
+            $data['image_url'] = $imageName;
+        }
+
+        // Update product
+        $product->update($data);
+
+        return redirect()->route('products.index')->with('success', 'Product updated successfully.');
     }
 
     /**

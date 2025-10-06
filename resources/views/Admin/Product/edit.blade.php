@@ -339,7 +339,7 @@
 
                             <div class="mb-3">
                                 <label class="form-label">Short Description</label>
-                                <input type="text" name="" id=""  value = "{{ $product->short_description }}">
+                                <input type="text" name="short_description" id=""  value = "{{ $product->short_description }}">
                             
                                 <div class="form-text"><span id="shortDescCounter">0</span>/500 characters</div>
                             </div>
@@ -350,8 +350,14 @@
                             </div>
                         </div>
 
-                        <!-- Category -->
-                       
+                          <div class="col-md-6 mb-3">
+                                    <label class="form-label required">Status</label>
+                                    <select class="form-select" name="status" >
+                                        <option value="pending" {{ $product->status == 'pending' ? 'selected' : '' }}> Pending</option>
+                                        <option value="rejected" {{ $product->status == 'rejected' ? 'selected' : '' }}> Rejected</option>
+                                        <option value="approved" {{ $product->status == 'approved' ? 'selected' : '' }}> Approved</option>
+                                    </select>
+                                </div>
 
                                 <div class="col-md-6 mb-3">
                                     <label class="form-label required">Active Status</label>
@@ -396,7 +402,7 @@
                         <!-- Image -->
                         <div class="form-section">
                             <h5><i class="fas fa-image"></i> Product Image</h5>
-                            <input type="file" name="image_url" class="form-control" accept="image/*">
+                            <input type="file" name="image_url" class="form-control" accept="image/*" value = "{{ $product->image_url }}">
                         </div>
 
                         <div class="d-flex justify-content-between mt-4">

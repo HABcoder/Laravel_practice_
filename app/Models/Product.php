@@ -17,6 +17,7 @@ class Product extends Model
         'quantity_in_stock',
         'min_stock_level',
         'image_url',
+        'status',
         'is_active',
         'sub_category_id'
     ];
