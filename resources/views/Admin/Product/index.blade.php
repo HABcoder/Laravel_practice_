@@ -231,13 +231,13 @@
                 </a>
             </li>
             
-           <li class="sidebar-item  has-sub">
+           <li class="sidebar-item  has-sub active">
                 <a href="#" class='sidebar-link'>
                     <i class="bi bi-stack"></i>
-                    <span>Product</span>
+                    <span>Product</span> 
                 </a>
-                <ul class="submenu ">
-                    <li class="submenu-item  active">
+                <ul class="submenu">
+                    <li class="submenu-item active">
                         <a href="{{ route('products.index') }}">Product Manage</a>
                     </li>
                     <li class="submenu-item ">
@@ -286,7 +286,7 @@
                 </a>
             </li>
             
-            <li class="sidebar-item active ">
+            <li class="sidebar-item">
                 <a href="application-chat.html" class='sidebar-link'>
                     <i class="bi bi-chat-dots-fill"></i>
                     <span>Chat Application</span>

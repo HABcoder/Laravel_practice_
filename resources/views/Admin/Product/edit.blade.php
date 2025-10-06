@@ -1,428 +1,265 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Product Management</title>
-    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.0.0/css/all.min.css">
-    <style>
-        
-        :root {
-            --primary-color: #4361ee;
-            --secondary-color: #3f37c9;
-            --success-color: #4cc9f0;
-            --warning-color: #f8961e;
-            --danger-color: #f94144;
-            --light-color: #f8f9fa;
-            --dark-color: #212529;
-            --border-radius: 8px;
-            --box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-        }
-        
-        body {
-            background-color: #f5f7fb;
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            color: var(--dark-color);
-            padding-top: 20px;
-            padding-bottom: 40px;
-        }
-        
-        .page-container {
-            background-color: white;
-            border-radius: var(--border-radius);
-            box-shadow: var(--box-shadow);
-            padding: 30px;
-            margin-bottom: 30px;
-        }
-        
-        .page-header {
-            border-bottom: 2px solid var(--primary-color);
-            padding-bottom: 15px;
-            margin-bottom: 25px;
-            color: var(--primary-color);
-        }
-        
-        .stats-cards {
-            display: grid;
-            grid-template-columns: repeat(auto-fit, minmax(240px, 1fr));
-            gap: 20px;
-            margin-bottom: 30px;
-        }
-        
-        .stat-card {
-            background: white;
-            border-radius: var(--border-radius);
-            box-shadow: var(--box-shadow);
-            padding: 20px;
-            text-align: center;
-            transition: transform 0.3s;
-        }
-        
-        .stat-card:hover {
-            transform: translateY(-5px);
-        }
-        
-        .stat-card i {
-            font-size: 2rem;
-            margin-bottom: 10px;
-        }
-        
-        .stat-card.total i { color: var(--primary-color); }
-        .stat-card.active i { color: var(--success-color); }
-        .stat-card.pending i { color: var(--warning-color); }
-        .stat-card.low-stock i { color: var(--danger-color); }
-        
-        .stat-value {
-            font-size: 2rem;
-            font-weight: 700;
-            margin: 10px 0;
-        }
-        
-        .stat-label {
-            color: #6c757d;
-            font-size: 0.9rem;
-        }
-        
-        .table-container {
-            background-color: white;
-            border-radius: var(--border-radius);
-            box-shadow: var(--box-shadow);
-            overflow: hidden;
-        }
-        
-        .table-header {
-            background-color: var(--primary-color);
-            color: white;
-            padding: 15px 20px;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-        }
-        
-        .table-header h3 {
-            margin: 0;
-            font-size: 1.3rem;
-        }
-        
-        .table-responsive {
-            overflow-x: auto;
-        }
-        
-        .table th {
-            background-color: #e9ecef;
-            border-top: none;
-            font-weight: 600;
-            color: #495057;
-            position: sticky;
-            top: 0;
-        }
-        
-        .table td {
-            vertical-align: middle;
-        }
-        
-        .product-image {
-            width: 50px;
-            height: 50px;
-            object-fit: cover;
-            border-radius: 4px;
-        }
-        
-        .status-badge {
-            padding: 5px 10px;
-            border-radius: 20px;
-            font-size: 0.8rem;
-            font-weight: 600;
-        }
-        
-        .status-pending {
-            background-color: #fff3cd;
-            color: #856404;
-        }
-        
-        .status-approved {
-            background-color: #d1ecf1;
-            color: #0c5460;
-        }
-        
-        .status-rejected {
-            background-color: #f8d7da;
-            color: #721c24;
-        }
-        
-        .status-active {
-            background-color: #d4edda;
-            color: #155724;
-        }
-        
-        .status-deactive {
-            background-color: #f8d7da;
-            color: #721c24;
-        }
-        
-        .stock-low {
-            color: var(--danger-color);
-            font-weight: 600;
-        }
-        
-        .action-buttons {
-            display: flex;
-            gap: 5px;
-        }
-        
-        .btn-action {
-            padding: 5px 10px;
-            border-radius: 4px;
-            font-size: 0.8rem;
-            display: flex;
-            align-items: center;
-            gap: 5px;
-        }
-        
-        .btn-view {
-            background-color: #e2e3e5;
-            color: #383d41;
-            border: none;
-        }
-        
-        .btn-edit {
-            background-color: #d1ecf1;
-            color: #0c5460;
-            border: none;
-        }
-        
-        .btn-delete {
-            background-color: #f8d7da;
-            color: #721c24;
-            border: none;
-        }
-        
-        .search-filter {
-            display: flex;
-            gap: 15px;
-            margin-bottom: 20px;
-            flex-wrap: wrap;
-        }
-        
-        .search-box {
-            flex: 1;
-            min-width: 250px;
-        }
-        
-        .filter-select {
-            width: 200px;
-        }
-        
-        .pagination-container {
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
-            padding: 15px 20px;
-            background-color: #f8f9fa;
-            border-top: 1px solid #dee2e6;
-        }
-        
-        .price-sort {
-            display: flex;
-            align-items: center;
-            gap: 10px;
-        }
-        
-        .price-sort-btn {
-            background: none;
-            border: 1px solid #ced4da;
-            border-radius: 4px;
-            padding: 6px 12px;
-            cursor: pointer;
-            display: flex;
-            align-items: center;
-            gap: 5px;
-            transition: all 0.3s;
-        }
-        
-        .price-sort-btn.active {
-            background-color: var(--primary-color);
-            color: white;
-            border-color: var(--primary-color);
-        }
-        
-        .price-sort-btn:hover:not(.active) {
-            background-color: #e9ecef;
-        }
-        
-        .filter-tags {
-            display: flex;
-            flex-wrap: wrap;
-            gap: 10px;
-            margin-top: 10px;
-        }
-        
-        .filter-tag {
-            background-color: #e9ecef;
-            border-radius: 20px;
-            padding: 5px 12px;
-            font-size: 0.85rem;
-            display: flex;
-            align-items: center;
-            gap: 5px;
-        }
-        
-        .filter-tag .close {
-            cursor: pointer;
-            margin-left: 5px;
-        }
-        
-        .discount-badge {
-            background-color: var(--danger-color);
-            color: white;
-            padding: 2px 6px;
-            border-radius: 4px;
-            font-size: 0.7rem;
-            margin-left: 5px;
-        }
-        
-        @media (max-width: 768px) {
-            .table-header {
-                flex-direction: column;
-                gap: 15px;
-                align-items: flex-start;
-            }
-            
-            .search-filter {
-                flex-direction: column;
-            }
-            
-            .search-box, .filter-select {
-                width: 100%;
-            }
-            
-            .action-buttons {
-                flex-direction: column;
-            }
-            
-            .price-sort {
-                justify-content: space-between;
-                width: 100%;
-            }
-        }
-    </style>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Edit Product</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.0/css/all.min.css" rel="stylesheet">
+
+  <style>
+    body {
+      background: linear-gradient(135deg, #f8f9fb, #eef1f8);
+      font-family: "Poppins", sans-serif;
+      color: #333;
+      padding: 40px 0;
+    }
+
+    .form-container {
+      background: #fff;
+      border-radius: 20px;
+      box-shadow: 0 10px 25px rgba(0, 0, 0, 0.08);
+      padding: 40px 50px;
+      animation: fadeIn 0.6s ease-in-out;
+    }
+
+    .form-header {
+      border-left: 5px solid #4e73df;
+      padding-left: 15px;
+      margin-bottom: 30px;
+    }
+
+    .form-header h1 {
+      font-size: 1.8rem;
+      font-weight: 700;
+      color: #4e73df;
+    }
+
+    .form-header p {
+      font-size: 0.95rem;
+      color: #6c757d;
+    }
+
+    .form-section {
+      margin-bottom: 35px;
+      padding: 25px;
+      border: 1px solid #eee;
+      border-radius: 15px;
+      background-color: #fafbfe;
+      transition: all 0.3s;
+    }
+
+    .form-section:hover {
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.05);
+      transform: translateY(-3px);
+    }
+
+    .form-section h5 {
+      font-weight: 600;
+      color: #4e73df;
+      margin-bottom: 20px;
+    }
+
+    .form-label {
+      font-weight: 600;
+      color: #555;
+    }
+
+    .form-control,
+    .form-select {
+      border-radius: 12px;
+      border: 1px solid #ced4da;
+      transition: all 0.3s ease;
+      font-size: 0.95rem;
+      padding: 10px 14px;
+    }
+
+    .form-control:focus,
+    .form-select:focus {
+      border-color: #4e73df;
+      box-shadow: 0 0 8px rgba(78, 115, 223, 0.3);
+      transform: scale(1.02);
+    }
+
+    .btn-primary {
+      background: linear-gradient(45deg, #4e73df, #6f42c1);
+      border: none;
+      border-radius: 10px;
+      padding: 12px 25px;
+      font-weight: 600;
+      transition: all 0.3s ease;
+    }
+
+    .btn-primary:hover {
+      transform: translateY(-2px);
+      box-shadow: 0 5px 15px rgba(78, 115, 223, 0.3);
+    }
+
+    .btn-outline-secondary {
+      border-radius: 10px;
+      padding: 12px 25px;
+      font-weight: 600;
+    }
+
+    .fa-section-icon {
+      color: #4e73df;
+      margin-right: 8px;
+    }
+
+    .form-text {
+      color: #6c757d;
+      font-size: 0.85rem;
+    }
+
+    @keyframes fadeIn {
+      from {
+        opacity: 0;
+        transform: translateY(10px);
+      }
+      to {
+        opacity: 1;
+        transform: translateY(0);
+      }
+    }
+
+    @media (max-width: 768px) {
+      .form-container {
+        padding: 25px;
+      }
+    }
+  </style>
 </head>
+
 <body>
-
-
   <div class="container">
-        <div class="row justify-content-center">
-            <div class="col-lg-10">
-                <div class="form-container">
-                    <div class="form-header">
-                        <h1 class="h3"><i class="fas fa-plus-circle me-2"></i>Update Your Product</h1>
-                        <p class="text-muted">Fill in the product details below.</p>
-                    </div>
+    <div class="row justify-content-center">
+      <div class="col-lg-9">
+        <div class="form-container">
+          <div class="form-header">
+            <h1><i class="fas fa-pen-to-square me-2"></i>Edit Product</h1>
+            <p>Update your product information below.</p>
+          </div>
 
-                    <form action="{{ route('products.update', $product->product_id) }}" method="POST" enctype="multipart/form-data">
-                        @csrf
-                        @method('PUT')
-                        <!-- Basic Info -->
-                        <div class="form-section">
-                            <h5><i class="fas fa-info-circle"></i> Basic Information</h5>
-                            <div class="row">
-                                <div class="col-md-6 mb-3">
-                                    <label class="form-label required">Product Name</label>
-                                    <input type="text" name="product_name" class="form-control" value="{{ $product->product_name }}">
-                                </div>
-                                <div class="col-md-6 mb-3">
-                                    <label class="form-label required">SKU</label>
-                                    <input type="text" name="sku" class="form-control" value = "{{ $product->sku }}">
-                                </div>
-                            </div>
+          <form action="{{ route('products.update', $product->product_id) }}" method="POST" enctype="multipart/form-data">
+            @csrf
+            @method('PUT')
 
-                            <div class="mb-3">
-                                <label class="form-label">Short Description</label>
-                                <input type="text" name="short_description" id=""  value = "{{ $product->short_description }}">
-                            
-                                <div class="form-text"><span id="shortDescCounter">0</span>/500 characters</div>
-                            </div>
-
-                            <div class="mb-3">
-                                <label class="form-label">Full Description</label>
-                                <input type="text" name="description" value = "{{ $product->description }}">
-                            </div>
-                        </div>
-
-                          <div class="col-md-6 mb-3">
-                                    <label class="form-label required">Status</label>
-                                    <select class="form-select" name="status" >
-                                        <option value="pending" {{ $product->status == 'pending' ? 'selected' : '' }}> Pending</option>
-                                        <option value="rejected" {{ $product->status == 'rejected' ? 'selected' : '' }}> Rejected</option>
-                                        <option value="approved" {{ $product->status == 'approved' ? 'selected' : '' }}> Approved</option>
-                                    </select>
-                                </div>
-
-                                <div class="col-md-6 mb-3">
-                                    <label class="form-label required">Active Status</label>
-                                    <select class="form-select" name="is_active" >
-                                        <option value="de_active" {{ $product->is_active == 'de_active' ? 'selected' : '' }}> Deactivated</option>
-                                        <option value="active" {{ $product->is_active == 'active' ? 'selected' : '' }}> Active</option>
-                                    </select>
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Pricing -->
-                        <div class="form-section">
-                            <h5><i class="fas fa-tag"></i> Pricing Information</h5>
-                            <div class="row">
-                                <div class="col-md-4 mb-3">
-                                    <label class="form-label required" >Price ($)</label>
-                                    <input type="number" name="price" step="0.01" min="0" class="form-control" value = "{{ $product->price }}">
-                                </div>
-                                <div class="col-md-4 mb-3">
-                                    <label class="form-label" >Discount Price ($)</label>
-                                    <input type="number" name="discount_price" step="0.01" min="0" class="form-control" value = "{{ $product->discount_price }}">
-                                </div>
-                                <div class="col-md-4 mb-3">
-                                    <label class="form-label" >Cost Price ($)</label>
-                                    <input type="number" name="cost_price" step="0.01" min="0" class="form-control" value = "{{ $product->cost_price }}">
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Inventory -->
-                        <div class="form-section">
-                            <h5><i class="fas fa-boxes"></i> Inventory</h5>
-                            <div class="row">
-                                <div class="col-md-6 mb-3">
-                                    <label class="form-label required" >Quantity in Stock</label>
-                                    <input type="number" name="stock" class="form-control" value = "{{ $product->quantity_in_stock }}">
-                                </div>
-                            </div>
-                        </div>
-
-                        <!-- Image -->
-                        <div class="form-section">
-                            <h5><i class="fas fa-image"></i> Product Image</h5>
-                            <input type="file" name="image_url" class="form-control" accept="image/*" value = "{{ $product->image_url }}">
-                        </div>
-
-                        <div class="d-flex justify-content-between mt-4">
-                            <a href="{{ route('products.index') }}" class="btn btn-outline-secondary"><i class="fas fa-times me-2"></i>Cancel</a>
-                            <button type="submit" class="btn btn-primary"><i class="fas fa-save me-2"></i>Save Product</button>
-                        </div>
-                    </form>
+            <!-- Basic Info -->
+            <div class="form-section">
+              <h5><i class="fa-solid fa-circle-info fa-section-icon"></i>Basic Information</h5>
+              <div class="row">
+                <div class="col-md-6 mb-3">
+                  <label class="form-label required">Product Name</label>
+                  <input type="text" name="product_name" class="form-control" value="{{ $product->product_name }}">
                 </div>
-            </div>
-        </div>
-    </div>
 
-    <!-- Bootstrap JS Bundle with Popper -->
-    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0-alpha1/dist/js/bootstrap.bundle.min.js"></script>
-    
-<script>
-document.getElementById('shortDescription').addEventListener('input', function() {
-    document.getElementById('shortDescCounter').textContent = this.value.length;
-});
-</script>
+                <div class="col-md-6 mb-3">
+                  <label class="form-label required">SKU</label>
+                  <input type="text" name="sku" class="form-control" value="{{ $product->sku }}">
+                </div>
+              </div>
+
+              <div class="mb-3">
+                <label class="form-label">Short Description</label>
+                <input type="text" id="shortDescription" name="short_description" class="form-control"
+                  value="{{ $product->short_description }}">
+                <div class="form-text"><span id="shortDescCounter">0</span>/500 characters</div>
+              </div>
+
+              <div class="mb-3">
+                <label class="form-label">Full Description</label>
+                <textarea name="description" class="form-control" rows="3">{{ $product->description }}</textarea>
+              </div>
+            </div>
+
+            <!-- Status -->
+            <div class="form-section">
+              <h5><i class="fas fa-toggle-on fa-section-icon"></i>Status & Activation</h5>
+              <div class="row">
+                <div class="col-md-6 mb-3">
+                  <label class="form-label required">Product Status</label>
+                  <select class="form-select" name="status">
+                    <option value="pending" {{ $product->status == 'pending' ? 'selected' : '' }}>Pending</option>
+                    <option value="approved" {{ $product->status == 'approved' ? 'selected' : '' }}>Approved</option>
+                    <option value="rejected" {{ $product->status == 'rejected' ? 'selected' : '' }}>Rejected</option>
+                  </select>
+                </div>
+
+                <div class="col-md-6 mb-3">
+                  <label class="form-label required">Active Status</label>
+                  <select class="form-select" name="is_active">
+                    <option value="active" {{ $product->is_active == 'active' ? 'selected' : '' }}>Active</option>
+                    <option value="de_active" {{ $product->is_active == 'de_active' ? 'selected' : '' }}>Deactivated</option>
+                  </select>
+                </div>
+              </div>
+            </div>
+
+            <!-- Pricing -->
+            <div class="form-section">
+              <h5><i class="fas fa-dollar-sign fa-section-icon"></i>Pricing Information</h5>
+              <div class="row">
+                <div class="col-md-4 mb-3">
+                  <label class="form-label required">Price ($)</label>
+                  <input type="number" step="0.01" min="0" name="price" class="form-control" value="{{ $product->price }}">
+                </div>
+                <div class="col-md-4 mb-3">
+                  <label class="form-label">Discount Price ($)</label>
+                  <input type="number" step="0.01" min="0" name="discount_price" class="form-control"
+                    value="{{ $product->discount_price }}">
+                </div>
+                <div class="col-md-4 mb-3">
+                  <label class="form-label">Cost Price ($)</label>
+                  <input type="number" step="0.01" min="0" name="cost_price" class="form-control"
+                    value="{{ $product->cost_price }}">
+                </div>
+              </div>
+            </div>
+
+            <!-- Inventory -->
+            <div class="form-section">
+              <h5><i class="fas fa-boxes fa-section-icon"></i>Inventory</h5>
+              <div class="row">
+                <div class="col-md-6 mb-3">
+                  <label class="form-label required">Quantity in Stock</label>
+                  <input type="number" name="stock" class="form-control" value="{{ $product->quantity_in_stock }}">
+                </div>
+              </div>
+            </div>
+
+            <!-- Image -->
+            <div class="form-section">
+              <h5><i class="fas fa-image fa-section-icon"></i>Product Image</h5>
+              <input type="file" name="image_url" class="form-control mb-2" accept="image/*">
+              @if($product->image_url)
+                <img src="{{ asset('image/' . $product->image_url) }}" alt="Product Image"
+                  class="img-thumbnail mt-2" width="120">
+              @endif
+            </div>
+
+            <div class="d-flex justify-content-between mt-4">
+              <a href="{{ route('products.index') }}" class="btn btn-outline-secondary">
+                <i class="fas fa-arrow-left me-2"></i>Cancel
+              </a>
+              <button type="submit" class="btn btn-primary">
+                <i class="fas fa-save me-2"></i>Update Product
+              </button>
+            </div>
+          </form>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script>
+    const shortDesc = document.getElementById('shortDescription');
+    const counter = document.getElementById('shortDescCounter');
+    if (shortDesc) {
+      counter.textContent = shortDesc.value.length;
+      shortDesc.addEventListener('input', () => {
+        counter.textContent = shortDesc.value.length;
+      });
+    }
+  </script>
 </body>
 </html>
-
